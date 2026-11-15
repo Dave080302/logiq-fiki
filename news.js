@@ -155,6 +155,7 @@ function closeReview() {
   // Return keyboard users to the control that can reopen the completed review.
   requestAnimationFrame(() => $('review-indicator').focus({ preventScroll: true }));
 }
+document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); $('workspace').focus(); $('workspace').scrollIntoView({ block: 'start' }); });
 $('expand-alert').addEventListener('click', () => go('review'));
 function dismissAlert() { reviewed.add(key()); go('reading', {}, true); $('review-indicator').focus({ preventScroll: true }); }
 $('dismiss-alert').addEventListener('click', dismissAlert);
