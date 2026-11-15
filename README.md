@@ -6,4 +6,4 @@ M4 simulates automatic news review: read → LogiQ alert → findings and source
 
 Run `python3 serve.py` and open http://localhost:8000/. No build or dependencies required. GitHub Pages serves the repository root from `main`.
 
-Main files: `news.html`, `news.js`, `news-data.js`, `m4.css` (prototype); `ux.html`, `assets/m4/` (research and wireframes); `index.html` (journal). Existing interviews and original reference materials are preserved.
+Main files: `news.html`, `news.js`, `news-data.js`, `m4.css` (prototype); `ux.html`, `assets/m4/` (research and wireframes); `index.html` (journal).

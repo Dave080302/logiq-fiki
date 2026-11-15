@@ -95,7 +95,7 @@ function render() {
   state.sample = Object.hasOwn(newsSamples, params.get('sample')) ? params.get('sample') : 'repair';
   state.surface = params.get('surface') === 'feed' ? 'feed' : 'browser';
   state.device = params.has('device') ? (params.get('device') === 'mobile' ? 'mobile' : 'desktop') : (matchMedia('(max-width: 720px)').matches ? 'mobile' : 'desktop');
-  // Older deep links land on the simplified expanded review.
+  // Direct result links open the expanded review.
   state.view = ['alert', 'review'].includes(requested) ? requested : ['results', 'claim', 'sources', 'share'].includes(requested) ? 'review' : 'reading';
   const sample = newsSamples[state.sample];
   if (state.view !== 'reading') reviewed.add(key());
