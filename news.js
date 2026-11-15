@@ -23,9 +23,6 @@ function go(view, overrides = {}, replace = false) {
   else if (location.hash === hash) render();
   else location.hash = hash;
 }
-function summaryText(sample) {
-  return ['LogiQ — illustrative review, not a live fact-check.', `Sample story: ${sample.title}`, '', sample.takeaway, '', ...sample.claims.map(claim => `${claim.label}: ${claim.text}`), '', 'Selected evidence:', ...(sample.sources.length ? sample.sources.map(source => `${source.publisher} — ${source.title}\n${source.url}`) : ['No official source is included in this fictional sample.']), '', 'Manually curated demonstration. Check the original context before acting or sharing.'].join('\n');
-}
 function sourceBlock(source) {
   const box = element('details', 'source-details');
   const summary = element('summary'); add(summary, element('span', 'source-icon', '↗'), element('span', '', source.publisher));
@@ -48,31 +45,12 @@ function claimBlock(claim, sample, number) {
   add(body, sources, p(claim.question, 'reflection-question'));
   return add(block, summary, body);
 }
-function shareBlock(sample) {
-  const details = element('details', 'share-disclosure'); add(details, element('summary', '', 'Share a short summary'));
-  const label = element('label', 'field-label', 'Summary with evidence'); label.htmlFor = 'share-text';
-  const text = element('textarea'); text.id = 'share-text'; text.readOnly = true; text.rows = 7; text.value = summaryText(sample);
-  const copy = element('button', 'button button-dark full-button', 'Copy summary & sources'); copy.type = 'button';
-  const status = p('', 'copy-status'); status.setAttribute('role', 'status');
-  copy.addEventListener('click', async () => {
-    const revision = state.revision; copy.disabled = true;
-    try {
-      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
-      await navigator.clipboard.writeText(text.value);
-      if (revision === state.revision) status.textContent = 'Copied with sources and the demo notice. Nothing was posted.';
-    } catch (_) {
-      if (revision === state.revision) { status.textContent = 'Select the summary and use your device’s Copy command.'; text.focus(); text.select(); }
-    } finally { if (revision === state.revision) copy.disabled = false; }
-  });
-  const body = element('div', 'share-body'); add(body, label, text, copy, status);
-  return add(details, body);
-}
 function renderReview(sample) {
   const body = $('review-content');
   const title = element('h2', '', 'Here’s what needs a closer look.'); title.id = 'review-title'; title.tabIndex = -1;
   const claims = element('div', 'claim-list'); sample.claims.forEach((claim, n) => claims.append(claimBlock(claim, sample, n)));
-  const back = element('button', 'inline-button continue-reading', 'Close and keep reading →'); back.type = 'button'; back.addEventListener('click', closeReview);
-  body.replaceChildren(p('THE STORY, IN CONTEXT', 'eyebrow'), title, p(sample.summary, 'panel-description'), claims, shareBlock(sample), back);
+  const back = element('button', 'button button-dark continue-reading', 'Close and keep reading →'); back.type = 'button'; back.addEventListener('click', closeReview);
+  body.replaceChildren(p('THE STORY, IN CONTEXT', 'eyebrow'), title, p(sample.summary, 'panel-description'), claims, back);
 }
 function renderArticle(sample) {
   const story = $('reading-article');
@@ -100,7 +78,7 @@ function renderFeed(sample) {
   feed.replaceChildren(intro, selected, next);
 }
 function renderChrome(sample) {
-  const chrome = $('scene-chrome');
+  const chrome = $('scene-context');
   if (state.surface === 'feed') {
     chrome.replaceChildren(element('strong', 'feed-brand', 'community'), element('span', 'feed-search', 'Your community feed'), element('span', 'chrome-profile', 'A'));
   } else {
@@ -108,9 +86,7 @@ function renderChrome(sample) {
   }
 }
 function setIndicator(ready) {
-  $('review-indicator').disabled = !ready;
-  $('review-indicator').classList.toggle('is-ready', ready);
-  $('indicator-label').textContent = ready ? 'LogiQ · Review ready' : 'LogiQ is reviewing…';
+  $('review-indicator').hidden = !ready;
 }
 function render() {
   clearTimeout(state.timer); state.revision += 1;
@@ -129,15 +105,13 @@ function render() {
   document.querySelectorAll('[data-device]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.device === state.device)));
   $('experience-frame').className = `experience-frame ${state.device}-experience ${state.surface}-experience`;
   $('reading-article').hidden = state.surface !== 'browser'; $('social-feed').hidden = state.surface !== 'feed';
-  $('scene-caption').textContent = `${state.device === 'mobile' ? 'Mobile' : 'Desktop'} · ${state.surface === 'feed' ? 'Social feed' : 'Browser article'}`;
   $('scene-layout').classList.toggle('has-review', state.view === 'review');
   $('logiq-alert').hidden = state.view !== 'alert'; $('review-panel').hidden = state.view !== 'review';
   $('expand-alert').setAttribute('aria-expanded', String(state.view === 'review'));
   $('review-indicator').setAttribute('aria-expanded', String(state.view === 'review'));
   $('reading-surface').inert = state.device === 'mobile' && state.view === 'review';
   const issue = sample.claims.find(claim => claim.status !== 'supported') || sample.claims[0];
-  $('alert-title').textContent = issue.status === 'uncertain' ? 'A shared claim needs a source.' : issue.status === 'context' ? 'This story may be missing context.' : 'We found a misleading claim.';
-  $('alert-description').textContent = issue.status === 'uncertain' ? 'See what’s missing before you share it.' : 'Take a quick look at the explanation and evidence.';
+  $('alert-title').textContent = issue.status === 'uncertain' ? 'This claim needs a source.' : issue.status === 'context' ? 'This story may need context.' : 'A claim may be misleading.';
   setIndicator(reviewed.has(key()));
   if (state.view === 'reading' && !reviewed.has(key())) {
     const revision = state.revision;
@@ -145,7 +119,7 @@ function render() {
       if (revision !== state.revision) return;
       reviewed.add(key());
       go('alert', {}, true);
-      $('announcement').textContent = 'LogiQ has a finding for this sample. Open the branded alert to see the explanation and sources.';
+      $('announcement').textContent = 'LogiQ noticed a claim that may need a second look.';
     }, 1100);
   }
   if (state.view === 'review') { $('review-panel').scrollTop = 0; $('review-title').focus({ preventScroll: true }); }

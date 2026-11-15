@@ -6,14 +6,14 @@
   <meta name="description" content="Explore LogiQ’s automatic review alert in desktop and mobile browser and social-feed scenarios.">
   <title>LogiQ — A second look, right when it matters</title>
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./m4.css?v=automatic-1">
-  <script src="./news-data.js?v=automatic-1" defer></script><script src="./news.js?v=automatic-1" defer></script>
+  <link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./m4.css?v=quiet-2">
+  <script src="./news-data.js?v=quiet-2" defer></script><script src="./news.js?v=quiet-2" defer></script>
 </head>
 <body class="news-app">
   <a class="skip-link" href="#workspace">Skip to the experience</a>
   <header class="app-header"><a class="wordmark" href="./news.html">Logi<span>Q</span><span class="brand-dot">.</span></a><span class="app-purpose">A second look, right when it matters.</span><nav aria-label="Project links"><a href="./ux.html#wireframes">Wireframes</a><a href="./ux.html">UX & research</a><a href="./index.html#m4">Project journal →</a></nav></header>
   <main id="workspace" class="workspace" tabindex="-1">
-    <div class="workspace-heading"><div><p class="eyebrow">THE LOGIQ EXPERIENCE</p><h1>Keep reading.<br><em>We’ll flag what needs a closer look.</em></h1></div><p class="workspace-intro">Choose a setting and watch the LogiQ alert appear. Tap it to see the explanation and sources.</p></div>
+    <div class="workspace-heading"><div><p class="eyebrow">THE LOGIQ EXPERIENCE</p><h1>Keep reading.<br><em>We’ll flag what needs a closer look.</em></h1></div><p class="workspace-intro">Choose a setting and watch the LogiQ alert appear. Open it whenever you want a closer look.</p></div>
     <noscript><div class="notice">Enable JavaScript for the simulated automatic alert, or explore the <a href="./ux.html#wireframes">complete desktop and mobile wireframes</a>.</div></noscript>
     <div id="app" hidden>
       <div class="experience-controls">
@@ -24,16 +24,14 @@
       </div>
       <div class="experience-frame" id="experience-frame">
         <div class="device-status" aria-hidden="true"><span>9:41</span><span>● ● ▰</span></div>
-        <div class="scene-chrome" id="scene-chrome"></div>
-        <div class="scene-toolbar"><span id="scene-caption"></span><button type="button" id="review-indicator" class="review-indicator" aria-controls="review-panel" aria-expanded="false" disabled><span class="indicator-dot" aria-hidden="true"></span><span id="indicator-label">LogiQ is reviewing…</span></button></div>
+        <div class="scene-chrome"><div class="scene-context" id="scene-context"></div><button type="button" id="review-indicator" class="review-indicator" aria-label="Open LogiQ review" title="Open LogiQ review" aria-controls="review-panel" aria-expanded="false" hidden><span aria-hidden="true">Q</span></button></div>
         <div class="scene-layout" id="scene-layout">
           <div class="reading-surface" id="reading-surface"><article class="reading-article" id="reading-article"></article><section class="social-feed" id="social-feed" aria-label="Sample social feed" hidden></section></div>
-          <aside class="logiq-alert" id="logiq-alert" aria-label="LogiQ review alert" hidden><div class="alert-brand"><span class="logiq-shield" aria-hidden="true">Q</span><div><strong>LogiQ</strong><span>Your reading companion</span></div><button type="button" id="dismiss-alert" class="alert-dismiss" aria-label="Dismiss LogiQ alert">×</button></div><button type="button" id="expand-alert" class="alert-body" aria-expanded="false" aria-controls="review-panel"><span class="alert-kicker">A SECOND LOOK MAY HELP</span><strong id="alert-title"></strong><span id="alert-description"></span><span class="alert-action">See why & view sources <span aria-hidden="true">→</span></span></button></aside>
+          <aside class="logiq-alert" id="logiq-alert" aria-label="LogiQ notification" hidden><button type="button" id="expand-alert" class="alert-body" aria-expanded="false" aria-controls="review-panel"><span class="alert-mark" aria-hidden="true">Q</span><span class="alert-copy"><strong>LogiQ</strong><span id="alert-title"></span></span><span class="alert-chevron" aria-hidden="true">›</span></button><button type="button" id="dismiss-alert" class="alert-dismiss" aria-label="Dismiss LogiQ notification">×</button></aside>
           <section class="review-panel" id="review-panel" aria-labelledby="review-title" hidden><div class="panel-top"><span class="panel-brand"><span class="logiq-shield" aria-hidden="true">Q</span> LogiQ <span>SECOND LOOK</span></span><button type="button" class="close-panel" id="close-review" aria-label="Close LogiQ and keep reading">×</button></div><div id="review-content" class="panel-body"></div></section>
         </div>
         <div class="mobile-browser-bar" aria-hidden="true"><span>‹</span><span>›</span><span>□</span><span>⋯</span></div>
       </div>
-      <p class="prototype-footer">Interactive simulation · sample stories and curated evidence only. No real browsing content is read or analyzed.</p>
       <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
     </div>
   </main>
