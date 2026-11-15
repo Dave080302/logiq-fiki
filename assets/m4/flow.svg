@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" role="img" aria-labelledby="title desc">
+<title id="title">LogiQ M4 user flows</title><desc id="desc">Read an article or enter a link. Request a check. Handle inaccessible content or review claim-level results. Inspect evidence and context; sharing and feedback are optional. Return to reading at any time.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#6551a6"/></marker><style>text{font-family:Arial,Helvetica,sans-serif;fill:#242822} .label{font-size:16px}.sub{font-size:14px;fill:#62675f}.line{fill:none;stroke:#6551a6;stroke-width:2;marker-end:url(#arrow)}.node{fill:#fffefa;stroke:#cbd1c1;stroke-width:1.5}.accent{fill:#eee9f8;stroke:#bcb0d0;stroke-width:1.5}</style></defs>
+<rect width="1100" height="790" fill="#f5f3ed"/><text x="45" y="48" font-size="14" fill="#6551a6" letter-spacing="2">M4 / FROM NEWS TO EVIDENCE</text>
+<rect class="node" x="50" y="85" width="280" height="70" rx="7"/><text class="label" x="76" y="115">Read a browser article</text><text class="sub" x="76" y="139">User chooses when to check</text>
+<rect class="node" x="390" y="85" width="290" height="70" rx="7"/><text class="label" x="416" y="115">Paste a link or a claim</text><text class="sub" x="416" y="139">Empty / unsupported input states</text>
+<path class="line" d="M190 155V195H390V225"/><path class="line" d="M535 155V195H390"/>
+<rect class="accent" x="250" y="225" width="280" height="70" rx="7"/><text class="label" x="276" y="255">Request a check</text><text class="sub" x="276" y="279">Cancel returns to reading</text>
+<path class="line" d="M390 295V345"/><path class="line" d="M530 260H800V225"/>
+<rect class="node" x="710" y="155" width="320" height="70" rx="7"/><text class="label" x="736" y="185">Article unavailable</text><text class="sub" x="736" y="209">No assessment from a headline alone</text>
+<rect class="accent" x="250" y="345" width="280" height="90" rx="7"/><text class="label" x="276" y="374">Review individual claims</text><text class="sub" x="276" y="399">Supported / contradicted / context</text><text class="sub" x="276" y="420">Insufficient evidence is valid too</text>
+<path class="line" d="M390 435V485"/><path class="line" d="M530 390H710"/>
+<rect class="node" x="710" y="345" width="320" height="90" rx="7"/><text class="label" x="736" y="375">Unresolved evidence</text><text class="sub" x="736" y="400">Show what is missing</text><text class="sub" x="736" y="421">Do not equate unknown with false</text>
+<rect class="node" x="250" y="485" width="280" height="70" rx="7"/><text class="label" x="276" y="515">Open a claim → inspect a source</text><text class="sub" x="276" y="539">Publisher, date, evidence, limits</text>
+<path class="line" d="M390 555V595H195V625"/><path class="line" d="M390 595H605V625"/>
+<rect class="node" x="50" y="625" width="290" height="70" rx="7"/><text class="label" x="76" y="655">Optional: share a summary</text><text class="sub" x="76" y="679">Keep sources and caveats attached</text>
+<rect class="node" x="460" y="625" width="290" height="70" rx="7"/><text class="label" x="486" y="655">Optional: challenge the result</text><text class="sub" x="486" y="679">Helpful / unclear / disagree</text>
+<text class="sub" x="50" y="750">Every result has a route back to reading. No sharing or feedback is required to leave.</text>
+</svg>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="Try LogiQ's M4 browser-style news verification prototype. Explore claims, sources, missing context and uncertainty with curated examples.">
+  <title>LogiQ — Take a second look</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./m4.css">
+  <script src="./news-data.js" defer></script><script src="./news.js" defer></script>
+</head>
+<body class="news-app">
+  <a class="skip-link" href="#workspace">Skip to the reading workspace</a>
+  <header class="app-header"><a class="wordmark" href="./news.html">Logi<span>Q</span><span class="brand-dot">.</span></a><span class="app-purpose">A second look at the news.</span><nav aria-label="Project links"><a href="./ux.html">About this prototype</a><a href="./index.html#m4">Project journal →</a></nav></header>
+  <div class="demo-ribbon"><span class="ribbon-label">M4 / UX PREVIEW</span><span>Fictional articles. Curated evidence. No live AI or page access.</span><a href="./ux.html#test">Interview tasks →</a></div>
+  <main id="workspace" class="workspace">
+    <div class="workspace-heading"><div><p class="eyebrow">THE READING ROOM</p><h1>Before you share,<br><em>take a second look.</em></h1></div><a class="button button-outline" href="#start?sample=repair" id="new-check">Check a link or text <span aria-hidden="true">→</span></a></div>
+    <noscript><div class="notice">This interactive prototype needs JavaScript. Read the <a href="./ux.html">persona, flows, and design decisions</a>, or explore the <a href="./wireframes.html">M3 static wireframes</a>.</div></noscript>
+    <div id="app" hidden>
+      <div class="workspace-toolbar"><div class="sample-field"><label for="news-sample">Explore a scenario</label><select id="news-sample"><option value="repair">A claim contradicted by evidence</option><option value="solar">A headline missing context</option><option value="buses">Not enough evidence</option><option value="unavailable">An inaccessible article</option></select></div><div class="toolbar-actions"><button class="quiet-button" id="mobile-preview" type="button" aria-pressed="false">Phone layout</button><button class="quiet-button" id="reset-news" type="button">Reset demo</button></div></div>
+      <div class="reading-browser" id="reading-browser">
+        <div class="browser-chrome"><span class="browser-lights" aria-hidden="true">● ● ●</span><span class="address-bar" id="article-address"></span><span class="sample-pill">FICTIONAL ARTICLE</span></div>
+        <div class="browser-tools"><a id="read-tab" href="#reading?sample=repair">← Back to article</a><span id="view-status" role="status">Reading</span><button type="button" class="logiq-trigger" id="check-article"><span aria-hidden="true">Q</span> Check this article</button></div>
+        <div class="reader-layout" id="reader-layout">
+          <article class="reading-article" id="reading-article"><div class="article-publication"><span>CIVIC WIRE</span><span>Demonstration edition</span></div><p class="eyebrow" id="article-topic"></p><h2 id="article-title"></h2><p class="article-lead" id="article-lead"></p><p class="article-byline" id="article-publisher"></p><div class="article-rule"></div><div id="article-body"></div><div class="article-bottom"><span class="mini-mark" aria-hidden="true">Q</span><p>Something feels off?<br><button type="button" class="inline-button" id="article-check-inline">Look at the claims and evidence →</button></p></div></article>
+          <aside class="reading-aside" id="reading-aside"><div class="aside-glyph" aria-hidden="true">Q</div><p class="eyebrow">A MOMENT TO CHECK</p><h3>A headline is<br>only the beginning.</h3><p>Open LogiQ to look at the claims, the supporting sources, and the context that might be missing.</p><p class="quiet-copy">You choose when to check. Nothing is read automatically.</p><button type="button" class="button button-dark" id="aside-check">Check this article <span aria-hidden="true">→</span></button></aside>
+          <section class="verification-panel" id="verification-panel" hidden aria-label="LogiQ analysis"><div class="panel-top"><a class="panel-brand" id="panel-home" href="#results?sample=repair"><span class="mini-mark" aria-hidden="true">Q</span> LogiQ <span>SECOND LOOK</span></a><a class="close-panel" id="close-panel" href="#reading?sample=repair" aria-label="Close LogiQ and return to the article">×</a></div><div id="panel-content"></div></section>
+        </div>
+      </div>
+      <p class="prototype-footer">Your reading stays here. Inputs and feedback are not sent or saved. Sources were curated on 15 November 2026; the demo does not refresh them.</p>
+    </div>
+  </main>
+  <dialog id="source-dialog" class="source-dialog" aria-labelledby="source-dialog-title"><form method="dialog"><button class="dialog-close" aria-label="Close source details">×</button></form><div id="source-dialog-body"></div></dialog>
+  <footer class="app-footer"><span>LogiQ · M4 news verification UX</span><a href="./ux.html#flows">Explore the user flows →</a><a href="./wireframes.html">Previous M3 prototype →</a></footer>
+</body>
+</html>
