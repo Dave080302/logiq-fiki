@@ -3,6 +3,9 @@
 const newsSamples = window.LOGIQ_NEWS;
 const $ = (id) => document.getElementById(id);
 const reviewed = new Set();
+let readingVisible = false;
+let savedReadingTop = 0;
+let savedWindowTop = 0;
 const state = { sample: 'repair', surface: 'browser', device: 'desktop', view: 'reading', timer: null, revision: 0 };
 const key = () => `${state.sample}:${state.surface}:${state.device}`;
 function element(tag, className, text) {
@@ -25,9 +28,9 @@ function go(view, overrides = {}, replace = false) {
 }
 function sourceBlock(source) {
   const box = element('details', 'source-details');
-  const summary = element('summary'); add(summary, element('span', 'source-icon', '↗'), element('span', '', source.publisher));
+  const summary = element('summary'); add(summary, element('span', '', source.publisher));
   const body = element('div', 'source-detail-body');
-  const external = element('a', 'source-original', 'Open original source →');
+  const external = element('a', 'source-original', 'Open original source');
   external.href = source.url; external.target = '_blank'; external.rel = 'noopener noreferrer';
   add(body, element('h4', '', source.title), p(source.date, 'source-date'), p(source.note), p(source.limitation, 'quiet-copy'), external);
   return add(box, summary, body);
@@ -61,7 +64,7 @@ function feedPost(author, initials, text, className = '') {
   const post = element('article', `feed-post ${className}`);
   const header = element('div', 'post-header');
   const authorBlock = element('div'); add(authorBlock, element('strong', '', author), element('span', '', 'Shared with the community · Sample post'));
-  add(header, element('span', 'post-avatar', initials), authorBlock, element('span', 'post-menu', '···'));
+  add(header, element('span', 'post-avatar', initials), authorBlock);
   add(post, header, p(text, 'post-text'));
   return post;
 }
@@ -80,9 +83,9 @@ function renderFeed(sample) {
 function renderChrome(sample) {
   const chrome = $('scene-context');
   if (state.surface === 'feed') {
-    chrome.replaceChildren(element('strong', 'feed-brand', 'community'), element('span', 'feed-search', 'Your community feed'), element('span', 'chrome-profile', 'A'));
+    chrome.replaceChildren(element('strong', 'feed-brand', 'community'));
   } else {
-    chrome.replaceChildren(element('span', 'browser-lights', '● ● ●'), element('span', 'address-bar', sample.url.replace('https://', '')), element('span', 'browser-menu', '···'));
+    chrome.replaceChildren(element('span', 'address-bar', sample.url.replace('https://', '')));
   }
 }
 function setIndicator(ready) {
@@ -99,7 +102,10 @@ function render() {
   state.view = ['alert', 'review'].includes(requested) ? requested : ['results', 'claim', 'sources', 'share'].includes(requested) ? 'review' : 'reading';
   const sample = newsSamples[state.sample];
   if (state.view !== 'reading') reviewed.add(key());
-  renderChrome(sample); renderArticle(sample); renderFeed(sample); renderReview(sample);
+  const contentKey = `${state.sample}:${state.surface}`;
+  if ($('reading-surface').dataset.contentKey !== contentKey) { renderArticle(sample); renderFeed(sample); $('reading-surface').dataset.contentKey = contentKey; $('reading-surface').scrollTop = 0; }
+  renderChrome(sample); renderReview(sample);
+  $('setting-summary').textContent = `${state.surface === 'feed' ? 'Feed' : 'Browser'} · ${$('news-sample').querySelector(`option[value="${state.sample}"]`).textContent}`;
   $('news-sample').value = state.sample;
   document.querySelectorAll('[data-surface]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.surface === state.surface)));
   document.querySelectorAll('[data-device]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.device === state.device)));
@@ -113,34 +119,65 @@ function render() {
   const issue = sample.claims.find(claim => claim.status !== 'supported') || sample.claims[0];
   $('alert-title').textContent = issue.status === 'uncertain' ? 'This claim needs a source.' : issue.status === 'context' ? 'This story may need context.' : 'A claim may be misleading.';
   setIndicator(reviewed.has(key()));
-  if (state.view === 'reading' && !reviewed.has(key())) {
-    const revision = state.revision;
-    state.timer = setTimeout(() => {
-      if (revision !== state.revision) return;
-      reviewed.add(key());
-      go('alert', {}, true);
-      $('announcement').textContent = 'LogiQ noticed a claim that may need a second look.';
-    }, 1100);
-  }
+  syncReviewMode();
+  scheduleAlert();
   if (state.view === 'review') { $('review-panel').scrollTop = 0; $('review-title').focus({ preventScroll: true }); }
+}
+function openReview() {
+  savedReadingTop = $('reading-surface').scrollTop; savedWindowTop = window.scrollY; go('review');
 }
 function closeReview() {
   reviewed.add(key()); go('reading');
   // Return keyboard users to the control that can reopen the completed review.
-  requestAnimationFrame(() => $('review-indicator').focus({ preventScroll: true }));
+  requestAnimationFrame(() => { $('reading-surface').scrollTop = savedReadingTop; window.scrollTo({ top: savedWindowTop, behavior: 'instant' }); $('review-indicator').focus({ preventScroll: true }); });
 }
 document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); $('workspace').focus(); $('workspace').scrollIntoView({ block: 'start' }); });
-$('expand-alert').addEventListener('click', () => go('review'));
+$('expand-alert').addEventListener('click', openReview);
 function dismissAlert() { reviewed.add(key()); go('reading', {}, true); $('review-indicator').focus({ preventScroll: true }); }
 $('dismiss-alert').addEventListener('click', dismissAlert);
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && state.view !== 'reading') { event.preventDefault(); state.view === 'review' ? closeReview() : dismissAlert(); }
 });
 $('close-review').addEventListener('click', closeReview);
-$('review-indicator').addEventListener('click', () => go('review'));
+$('review-indicator').addEventListener('click', () => state.view === 'review' ? closeReview() : openReview());
 document.querySelectorAll('[data-surface]').forEach(button => button.addEventListener('click', () => go('reading', { surface: button.dataset.surface })));
 document.querySelectorAll('[data-device]').forEach(button => button.addEventListener('click', () => go('reading', { device: button.dataset.device })));
 $('news-sample').addEventListener('change', event => go('reading', { sample: event.target.value }));
 $('replay').addEventListener('click', () => { reviewed.delete(key()); $('announcement').textContent = ''; go('reading', {}, true); });
 window.addEventListener('hashchange', render);
+function scheduleAlert() {
+  clearTimeout(state.timer);
+  $('logiq-alert').classList.toggle('is-offscreen', !readingVisible);
+  if (!readingVisible || state.view !== 'reading' || reviewed.has(key())) return;
+  const revision = state.revision;
+  state.timer = setTimeout(() => {
+    if (revision !== state.revision || !readingVisible) return;
+    reviewed.add(key()); go('alert', {}, true);
+    $('announcement').textContent = 'LogiQ noticed a claim that may need a second look.';
+  }, 1100);
+}
+function syncReviewMode() {
+  const modal = state.view === 'review' && state.device === 'mobile' && matchMedia('(max-width:720px)').matches;
+  document.body.classList.toggle('review-open', modal);
+  const panel = $('review-panel');
+  if (modal) { panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); }
+  else { panel.removeAttribute('role'); panel.removeAttribute('aria-modal'); }
+  document.querySelector('.global-header').inert = modal;
+  document.querySelector('.workspace-heading').inert = modal;
+  $('demo-settings').inert = modal;
+  document.querySelector('.scene-chrome').inert = modal;
+  document.querySelector('.app-footer').inert = modal;
+  $('reading-surface').inert = state.view === 'review' && state.device === 'mobile';
+}
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Tab' || !document.body.classList.contains('review-open')) return;
+  const controls = Array.from($('review-panel').querySelectorAll('button, a[href], summary')).filter(node => node.getClientRects().length);
+  const first = controls[0], last = controls[controls.length - 1];
+  if (event.shiftKey && (document.activeElement === first || document.activeElement === $('review-title'))) { event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+});
+$('demo-settings').open = !matchMedia('(max-width:720px)').matches;
 $('app').hidden = false; render();
+const visibility = new IntersectionObserver(entries => { readingVisible = entries[0].isIntersecting; scheduleAlert(); }, { threshold: 0 });
+visibility.observe($('reading-surface'));
+window.addEventListener('resize', syncReviewMode);

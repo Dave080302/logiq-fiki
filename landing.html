@@ -9,14 +9,10 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./landing.css">
-</head>
+<link rel="stylesheet" href="./site-ui.css?v=responsive-1"><script src="./site.js?v=responsive-1" defer></script></head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <a class="wordmark" href="./landing.html" aria-label="LogiQ product home">Logi<span>Q</span><span class="brand-dot">.</span></a>
-    <nav aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#your-call">Your call</a><a href="./index.html#m4">Project journal</a></nav>
-    <a class="header-link" href="./news.html">Try the prototype &nearr;</a>
-  </header>
+  <header class="site-header global-header"><a class="wordmark" href="./index.html" aria-label="LogiQ project home">Logi<span>Q</span><span class="brand-dot">.</span></a><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="global-nav" hidden>Menu <span aria-hidden="true">+</span></button><nav id="global-nav" aria-label="Main navigation"><a href="./index.html#journey">Project journal</a><a href="./ux.html">UX & research</a><a href="./interviews.html">Interviews</a><a class="nav-cta" href="./news.html">Try LogiQ →</a></nav></header>
   <main id="main">
     <section class="hero container landing-hero" aria-labelledby="landing-title">
       <div class="hero-copy">
@@ -25,7 +21,7 @@
         <p class="hero-description">LogiQ is a browser companion concept that helps you check news claims, follow their evidence, and understand missing context before you share.</p>
         <div class="hero-actions"><a class="button button-dark" href="./news.html">Try the interactive prototype <span aria-hidden="true">&rarr;</span></a><a class="text-link" href="#how-it-works">See how it works &darr;</a></div>
         <p class="hero-footnote">Desktop and mobile. Browser and feed. Your judgment.</p>
-        <p class="small-note landing-disclaimer">Interactive UX preview, not an installed extension. Fictional articles and curated evidence stand in for live checking.</p>
+        <p class="small-note landing-disclaimer">Explore the concept with sample stories and curated evidence.</p>
       </div>
       <div class="landing-preview">
         <div class="preview-caption"><span class="eyebrow">A MOMENT ON YOUR FEED</span><span class="demo-badge">ILLUSTRATION</span></div>
@@ -46,33 +42,22 @@
       </div>
     </section>
 
-    <div class="project-strip"><div class="container strip-inner"><span>For curious readers, students and anyone who wants to pause before sharing.</span><a href="./news.html">Take a second look &nearr;</a></div></div>
-
-    <section id="how-it-works" class="container section" aria-labelledby="how-title">
+<section id="how-it-works" class="container section" aria-labelledby="how-title">
       <div class="section-heading inline-heading"><div><p class="eyebrow">FROM A HEADLINE TO ITS EVIDENCE</p><h2 id="how-title">Stay curious.<br><em>Keep the final say.</em></h2></div><p>This is the experience we are exploring. Keep reading an article or browsing your feed. Open the LogiQ alert whenever you want a closer look.</p></div>
       <div class="steps-grid">
         <article><span class="step-number">01 / READ</span><h3>An alert, right when it matters.</h3><p>LogiQ reviews content automatically and shows a small LogiQ notification when something needs a second look. The prototype simulates this with three sample stories.</p></article>
         <article><span class="step-number">02 / UNDERSTAND</span><h3>See why, in plain language.</h3><p>Tap the alert to expand findings and sources together. See what the evidence supports, contradicts, or leaves unresolved.</p></article>
-        <article><span class="step-number">03 / QUESTION</span><h3>Follow the evidence.</h3><p>Inspect an original source, understand missing context, or return to reading.</p></article>
+        <article><span class="step-number">03 / QUESTION</span><h3>Keep the final say.</h3><p>Inspect the original source and its limits. Missing evidence is not a false verdict. Close the review whenever you want to keep reading.</p></article>
       </div>
     </section>
 
-    <section id="your-call" class="solution-section" aria-labelledby="your-call-title"><div class="container section">
-      <div class="section-heading inline-heading"><div><p class="eyebrow">A SECOND LOOK, NOT THE LAST WORD</p><h2 id="your-call-title">Clear evidence.<br><em>Room for uncertainty.</em></h2></div><p>LogiQ is meant to support your reasoning, not replace it. The distinction matters.</p></div>
-      <div class="steps-grid">
-        <article><span class="step-number">CLAIMS & EVIDENCE</span><h3>Look at each claim.</h3><p>One article can contain both supported and misleading statements. The prototype shows claim-level assessments against curated sources.</p></article>
-        <article><span class="step-number">CONTEXT, NOT CERTAINTY</span><h3>Leave room for nuance.</h3><p>Missing context and insufficient evidence are distinct outcomes. Neither emotional language nor missing evidence alone proves a claim false.</p></article>
-        <article><span class="step-number">YOUR PACE, YOUR CHOICE</span><h3>Close it and keep reading.</h3><p>Dismiss the alert or close the review at any time. Sources expand inline; the same flow works on desktop and mobile.</p></article>
-      </div>
-    </div></section>
-
-    <section class="container section landing-invite" aria-labelledby="invite-title">
+<section class="container section landing-invite" aria-labelledby="invite-title">
       <p class="eyebrow">SEE THE IDEA FOR YOURSELF</p><h2 id="invite-title">One story.<br><em>A clearer picture.</em></h2>
       <p>Try an article or social feed on desktop and mobile, examine the evidence, and see where the experience fits your reading habits.</p>
       <a class="button button-dark" href="./news.html">Explore the M4 prototype <span aria-hidden="true">&rarr;</span></a>
       <a class="text-link" href="./index.html#m4">See the research and design decisions</a>
     </section>
   </main>
-  <footer class="container site-footer"><a class="wordmark" href="./landing.html">Logi<span>Q</span><span class="brand-dot">.</span></a><p>Early concept. Built around curiosity.<br>Student project &middot; SE 2026&ndash;27</p><a href="./index.html#m4">The LogiQ project journal &nearr;</a></footer>
+  <footer class="container site-footer"><a class="wordmark" href="./landing.html">Logi<span>Q</span><span class="brand-dot">.</span></a><p>Early concept. Built around curiosity.<br>Student project &middot; SE 2026&ndash;27</p><a href="./index.html#m4">The LogiQ project journal →</a></footer>
 </body>
 </html>

@@ -8,29 +8,28 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./m4.css?v=quiet-2">
   <script src="./news-data.js?v=quiet-2" defer></script><script src="./news.js?v=quiet-2" defer></script>
-</head>
+<link rel="stylesheet" href="./site-ui.css?v=responsive-1"><script src="./site.js?v=responsive-1" defer></script></head>
 <body class="news-app">
   <a class="skip-link" href="#workspace">Skip to the experience</a>
-  <header class="app-header"><a class="wordmark" href="./news.html">Logi<span>Q</span><span class="brand-dot">.</span></a><span class="app-purpose">A second look, right when it matters.</span><nav aria-label="Project links"><a href="./ux.html#wireframes">Wireframes</a><a href="./ux.html">UX & research</a><a href="./index.html#m4">Project journal →</a></nav></header>
+  <header class="site-header global-header"><a class="wordmark" href="./index.html" aria-label="LogiQ project home">Logi<span>Q</span><span class="brand-dot">.</span></a><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="global-nav" hidden>Menu <span aria-hidden="true">+</span></button><nav id="global-nav" aria-label="Main navigation"><a href="./index.html#journey">Project journal</a><a href="./ux.html">UX & research</a><a href="./interviews.html">Interviews</a><a class="nav-cta" href="./news.html">Try LogiQ →</a></nav></header>
   <main id="workspace" class="workspace" tabindex="-1">
-    <div class="workspace-heading"><div><p class="eyebrow">THE LOGIQ EXPERIENCE</p><h1>Keep reading.<br><em>We’ll flag what needs a closer look.</em></h1></div><p class="workspace-intro">Choose a setting and watch the LogiQ alert appear. Open it whenever you want a closer look.</p></div>
+    <div class="workspace-heading"><div><p class="eyebrow">THE LOGIQ EXPERIENCE</p><h1>Keep reading.<br><em>Take a second look.</em></h1></div><p class="workspace-intro">A quiet LogiQ alert appears as you read. Tap it to inspect the claims and sources.</p></div>
     <noscript><div class="notice">Enable JavaScript for the simulated automatic alert, or explore the <a href="./ux.html#wireframes">complete desktop and mobile wireframes</a>.</div></noscript>
     <div id="app" hidden>
-      <div class="experience-controls">
+      <details class="demo-settings" id="demo-settings"><summary>Demo settings <span id="setting-summary">Browser · Phone repair rules</span></summary><div class="experience-controls">
         <div class="setting-group"><span class="control-label">Where you’re reading</span><div class="segmented" role="group" aria-label="Reading setting"><button type="button" data-surface="browser" aria-pressed="true">Browser article</button><button type="button" data-surface="feed" aria-pressed="false">Social feed</button></div></div>
         <div class="setting-group"><span class="control-label">Device</span><div class="segmented" role="group" aria-label="Device"><button type="button" data-device="desktop" aria-pressed="true">Desktop</button><button type="button" data-device="mobile" aria-pressed="false">Mobile</button></div></div>
         <div class="setting-group sample-field"><label for="news-sample" class="control-label">Story</label><select id="news-sample"><option value="repair">Phone repair rules</option><option value="solar">Solar during a blackout</option><option value="buses">A shared transport announcement</option></select></div>
         <button class="quiet-button replay-button" id="replay" type="button">Replay scenario ↻</button>
       </div>
-      <div class="experience-frame" id="experience-frame">
+      </details><div class="experience-frame" id="experience-frame">
         <div class="device-status" aria-hidden="true"><span>9:41</span><span>● ● ▰</span></div>
-        <div class="scene-chrome"><div class="scene-context" id="scene-context"></div><button type="button" id="review-indicator" class="review-indicator" aria-label="Open LogiQ review" title="Open LogiQ review" aria-controls="review-panel" aria-expanded="false" hidden><span aria-hidden="true">Q</span></button></div>
+        <div class="scene-chrome"><div class="scene-context" id="scene-context"></div><button type="button" id="review-indicator" class="review-indicator" aria-label="Open LogiQ review" title="Open LogiQ review" aria-controls="review-panel" aria-expanded="false" hidden><span aria-hidden="true">Q</span><span>LogiQ</span></button></div>
         <div class="scene-layout" id="scene-layout">
           <div class="reading-surface" id="reading-surface"><article class="reading-article" id="reading-article"></article><section class="social-feed" id="social-feed" aria-label="Sample social feed" hidden></section></div>
           <aside class="logiq-alert" id="logiq-alert" aria-label="LogiQ notification" hidden><button type="button" id="expand-alert" class="alert-body" aria-expanded="false" aria-controls="review-panel"><span class="alert-mark" aria-hidden="true">Q</span><span class="alert-copy"><strong>LogiQ</strong><span id="alert-title"></span></span><span class="alert-chevron" aria-hidden="true">›</span></button><button type="button" id="dismiss-alert" class="alert-dismiss" aria-label="Dismiss LogiQ notification">×</button></aside>
           <section class="review-panel" id="review-panel" aria-labelledby="review-title" hidden><div class="panel-top"><span class="panel-brand"><span class="logiq-shield" aria-hidden="true">Q</span> LogiQ <span>SECOND LOOK</span></span><button type="button" class="close-panel" id="close-review" aria-label="Close LogiQ and keep reading">×</button></div><div id="review-content" class="panel-body"></div></section>
         </div>
-        <div class="mobile-browser-bar" aria-hidden="true"><span>‹</span><span>›</span><span>□</span><span>⋯</span></div>
       </div>
       <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
     </div>
