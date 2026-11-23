@@ -1,0 +1,40 @@
+/* M4 participant interview notes and the proposed iteration. */
+.feedback-page .feedback-provenance { padding:16px 20px; border-left:3px solid var(--violet); background:var(--violet-light); font-size:16px; max-width:900px; }
+.feedback-findings { table-layout:auto; }
+.feedback-findings :is(th,td) { width:25%; font-size:16px; }
+.feedback-findings .table-tag { margin-top:8px; font-size:14px; }
+.feedback-reference { font-size:15px !important; margin-top:10px; }
+.feedback-priority { padding:20px; border:1px solid var(--line); border-radius:7px; margin-top:20px; }
+.feedback-summary { padding-left:23px; max-width:900px; }
+.feedback-summary li { margin-bottom:12px; }
+.feedback-records { margin-top:26px; border-top:1px solid var(--line); }
+.feedback-record { border-bottom:1px solid var(--line); scroll-margin-top:22px; }
+.feedback-record>summary { list-style:none; display:grid; grid-template-columns:190px 230px 1fr 24px; align-items:start; gap:20px; padding:22px 16px; min-height:96px; }
+.feedback-record>summary:hover { background:#eaece2; }
+.feedback-person { font-size:21px; font-weight:700; }
+.feedback-person>span { display:block; color:var(--muted); font-size:15px; line-height:1.6; font-weight:400; margin-top:3px; }
+.feedback-context { font-size:15px; color:var(--violet); padding-top:4px; }
+.feedback-issue { font-size:16px; padding-top:3px; }
+.feedback-toggle::before { content:'+'; font-size:25px; color:var(--violet); }
+.feedback-record[open] .feedback-toggle::before { content:'−'; }
+.feedback-record[open]>summary { background:var(--violet-light); }
+.feedback-record-body { max-width:900px; margin:auto; padding:25px 24px 30px; }
+.feedback-record-body h3 { margin:0 0 24px; font-size:21px; }
+.feedback-record-body p { font-size:17px; line-height:1.75; }
+.feedback-record-body .session-observation { padding-left:16px; border-left:2px solid var(--line); color:var(--muted); font-style:italic; }
+.feedback-takeaway { border:1px solid var(--line); padding:20px; margin:26px 0; background:var(--white); border-radius:7px; }
+.feedback-page #next p { max-width:850px; }
+.feedback-page .ux-actions { margin-bottom:16px; }
+@media(max-width:850px) {
+ .feedback-record>summary { grid-template-columns:minmax(0,1fr) 24px; gap:9px 12px; padding-inline:12px; }
+ .feedback-person { grid-column:1; }
+ .feedback-context,.feedback-issue { grid-column:1; padding-top:0; }
+ .feedback-toggle { grid-column:2; grid-row:1; }
+ .feedback-record-body { padding:23px 12px 28px; }
+ .feedback-findings { table-layout:fixed; }
+}
+@media print {
+ .feedback-record { break-inside:avoid; }
+ .feedback-record>summary { display:block; }
+ .feedback-toggle { display:none; }
+}
