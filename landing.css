@@ -18,3 +18,33 @@
  .landing-preview .demo-window { max-width:none; }
 }
 @media (max-width:400px) { .preview-caption { flex-wrap:wrap; } }
+
+/* M5 — same quiet editorial design language as the Fiki. */
+.m5-signup-section {display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,6vw,85px);align-items:center;border-top:1px solid var(--line)}
+.m5-signup-intro > h2 {margin:23px 0}
+.m5-signup-intro > p:not(.eyebrow) {max-width:465px;color:var(--muted);font-size:18px}
+.m5-signup-note {display:flex;gap:13px;border-left:2px solid var(--violet);padding:5px 0 5px 19px;margin-top:30px;color:var(--muted);font-size:15px;max-width:455px}
+.m5-signup-note > span {font:26px var(--serif);color:var(--violet)}
+.m5-signup-note strong {color:var(--ink)}
+.m5-signup-card {border:1px solid #d6dace;background:#fdfdf8;padding:clamp(26px,3.6vw,48px);border-radius:8px;box-shadow:0 16px 35px #29352408;min-width:0}
+.m5-signup-card h3 {font:32px/1.15 var(--serif);letter-spacing:-.035em;margin:16px 0}
+.m5-form-intro {font-size:16px;color:var(--muted);margin-bottom:25px}
+#m5-lead-form > label:not(.m5-checkbox-label) {font-size:14px;font-weight:700;display:block;margin-bottom:8px}
+.m5-email-input {display:block;width:100%;border:1px solid #c9d0c1;background:var(--white);border-radius:5px;font:16px var(--sans);padding:14px 15px;min-height:50px;color:var(--ink)}
+.m5-email-input::placeholder {color:#899188}
+.m5-email-input:focus-visible,.m5-checkbox-label input:focus-visible {outline:3px solid var(--violet);outline-offset:3px}
+.m5-checkbox-label {display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.55;color:#464f45;margin:19px 0 22px;cursor:pointer}
+.m5-checkbox-label input {width:18px;height:18px;accent-color:var(--violet);flex:0 0 18px;margin:2px 0 0}
+.m5-submit {min-height:48px;padding-inline:22px}
+.m5-submit:disabled {cursor:not-allowed;opacity:.55}
+.m5-form-status {font-size:14px;line-height:1.55;color:#2f6a4c;margin-top:14px;min-height:22px}
+.m5-form-status:empty {margin-top:0;min-height:0}
+.m5-form-status.is-error {color:#9a392a}
+.m5-privacy-note {font-size:12px;line-height:1.7;color:var(--muted);border-top:1px solid var(--line);padding-top:17px;margin-top:18px}
+.m5-honeypot {position:absolute;left:-10000px;height:1px;width:1px;overflow:hidden}
+.m5-footer-links {display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.m5-privacy-settings {border:0;background:none;color:var(--muted);font:12px var(--mono);text-decoration:underline;text-underline-offset:4px;padding:5px 0}
+.m5-privacy-settings:hover {color:var(--violet)}
+.m5-tracking-notice {font-size:12px;line-height:1.5;color:var(--muted);max-width:350px}
+@media(max-width:920px){.m5-signup-section {grid-template-columns:1fr;gap:30px}.m5-signup-intro > p:not(.eyebrow) {max-width:700px}.m5-signup-card {max-width:680px}}
+@media(max-width:550px){.m5-signup-card {padding:24px 20px}.m5-footer-links {display:block}.m5-footer-links > * {display:block;margin-top:8px}.m5-signup-card h3 {font-size:28px}}
