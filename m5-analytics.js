@@ -7,6 +7,8 @@
   const configured = /^phc_[A-Za-z0-9_-]{8,}$/.test(token) &&
     /^https:\/\/(eu|us)\.i\.posthog\.com$/.test(host);
   const optOutKey = 'logiq_m5_tracking_disabled';
+  // Honor the visitor's choice for this tab even when browser storage is unavailable.
+  let sessionOptOut = null;
   const control = document.getElementById('m5-tracking-toggle');
   const events = [];
   let initialized = false;
@@ -34,6 +36,7 @@
     return props;
   }
   function disabled() {
+    if (sessionOptOut !== null) return sessionOptOut;
     try { return localStorage.getItem(optOutKey) === '1'; }
     catch (_) { return false; }
   }
@@ -88,6 +91,7 @@
 
   control?.addEventListener('click', () => {
     const shouldDisable = !disabled();
+    sessionOptOut = shouldDisable;
     try {
       if (shouldDisable) localStorage.setItem(optOutKey, '1');
       else localStorage.removeItem(optOutKey);

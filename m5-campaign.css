@@ -16,3 +16,8 @@
 .m5-campaign-decisions h2 {margin:20px 0 15px}
 .m5-campaign-status {font-size:15px;border-left:2px solid var(--violet);padding-left:18px;margin:30px 0}
 @media(max-width:760px) {.m5-evidence-grid {grid-template-columns:1fr;gap:20px}.m5-campaign-intro {font-size:18px}}
+
+.m5-share-links {display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.m5-share-links .eyebrow {flex-basis:100%;font-size:12px}
+.m5-share-links a {font:14px var(--mono);text-decoration:underline;text-underline-offset:4px}
+.m5-share-links a:hover {color:var(--violet)}
